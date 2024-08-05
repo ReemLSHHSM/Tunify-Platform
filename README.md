@@ -6,9 +6,8 @@ Tunify Platform is a music management application designed to help users organiz
 
 ## Entity Relationship Diagram (ERD)
 
-![Tunify ERD Diagram](./path/to/your/erd-diagram.png)
+![Tunify ERD Diagram]([./path/to/your/erd-diagram.png](https://github.com/ReemLSHHSM/Tunify-Platform/blob/master/Tunify-Platform/Images/Tunify.png))
 
-> Note: Replace `./path/to/your/erd-diagram.png` with the actual path to your ERD image file.
 
 ## Entity Relationships
 
