@@ -12,7 +12,7 @@ Tunify Platform is a music management application designed to help users organiz
 ## Entity Relationships
 
 ### `Users`
-- **Primary Key (PK):** `Id`
+- **Primary Key (PK):** `Id` 
 - **Relationships:**
   - **Subscription**: Each user has a subscription type. (`Subscription_ID` is a foreign key referencing the `Subscriptions` table)
   - **Playlists**: Users can create multiple playlists. (`User_ID` is a foreign key in the `Playlist` table)
