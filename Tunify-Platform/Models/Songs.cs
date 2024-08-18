@@ -15,5 +15,7 @@
         public string Gener {  get; set; }
 
         public Artists Artist { get; set; }//one artist because 1 singer to many songs
+
+        public ICollection<PlaylistSongs> PlaylistsSongs { get; set; }
     }
 }

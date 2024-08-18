@@ -38,9 +38,21 @@ namespace Tunify_Platform.Data
             WithMany(s => s.Songs).
             HasForeignKey(s => s.ArtistID);
 
+            //Adding composit key to playlistsongs
+            modelBuilder.Entity<PlaylistSongs>()
+            .HasKey(ps => new { ps.PlaylistID, ps.SongID });
 
+            //creating relation between playlistsong and song
+            modelBuilder.Entity<PlaylistSongs>().
+            HasOne(p=>p.Songs).
+            WithMany(p=>p.PlaylistsSongs).
+            HasForeignKey(p=>p.SongID);
 
-             
+            //Creating relation between playlistsong and playlist
+            modelBuilder.Entity<PlaylistSongs>().
+            HasOne(p=>p.playlist).
+            WithMany(p=>p.playlistSongs).
+            HasForeignKey(p=> p.PlaylistID);
 
 
 

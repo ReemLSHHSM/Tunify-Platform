@@ -65,6 +65,13 @@ namespace Tunify_Platform.Controllers
             return NoContent();
         }
 
-       
+        [HttpPost("api/playlists/{playlistId}/songs/{songId}")]
+        public async Task<IActionResult> addToPlaylist(int songId, int playlistId)
+        {
+           var playlistsong= await _context.addToPlaylist(songId, playlistId);
+            return Ok(playlistsong);
+        }
+
+
     }
 }

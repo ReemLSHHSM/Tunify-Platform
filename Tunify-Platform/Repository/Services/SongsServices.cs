@@ -46,5 +46,18 @@ namespace Tunify_Platform.Repository.Services
             _context.SaveChanges();
             return existingSong;
         }
+
+        public async Task<PlaylistSongs> addToPlaylist(int songId,int playlistId)
+        {
+            var playlistsong = new PlaylistSongs();
+            playlistsong.PlaylistID=playlistId;
+            playlistsong.SongID=songId;
+
+           _context.playlistSongs.Add(playlistsong);
+            await _context.SaveChangesAsync();
+            return playlistsong;
+        }
+
+      
     }
 }

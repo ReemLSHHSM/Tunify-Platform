@@ -9,5 +9,7 @@
         public string Playlist_Name { get; set; }
 
         public DateTime Created_Date { get; set; }
+
+        public ICollection<PlaylistSongs> playlistSongs { get; set; }
     }
 }
