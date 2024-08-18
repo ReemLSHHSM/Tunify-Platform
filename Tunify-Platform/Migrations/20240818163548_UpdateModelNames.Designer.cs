@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tunify_Platform.Data;
 
@@ -11,9 +12,11 @@ using Tunify_Platform.Data;
 namespace Tunify_Platform.Migrations
 {
     [DbContext(typeof(TunifyDBContext))]
-    partial class TunifyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240818163548_UpdateModelNames")]
+    partial class UpdateModelNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,15 +46,6 @@ namespace Tunify_Platform.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("albums");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Album_Name = "Album One",
-                            ArtistID = 1,
-                            Release_Date = new DateTime(2024, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Tunify_Platform.Models.Artists", b =>
@@ -73,14 +67,6 @@ namespace Tunify_Platform.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("artists");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Bio = "A popular artist",
-                            Name = "Artist One"
-                        });
                 });
 
             modelBuilder.Entity("Tunify_Platform.Models.Playlist", b =>
@@ -156,17 +142,6 @@ namespace Tunify_Platform.Migrations
                     b.HasIndex("ArtistID");
 
                     b.ToTable("songs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AlbumID = 1,
-                            ArtistID = 1,
-                            Duration = "3:45",
-                            Gener = "Rock",
-                            Title = "Song One"
-                        });
                 });
 
             modelBuilder.Entity("Tunify_Platform.Models.Subscriptions", b =>

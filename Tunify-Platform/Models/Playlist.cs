@@ -4,7 +4,7 @@
     {
         public int Id { get; set; } // PK
 
-        public int User_ID { get; set; } // FK
+        public int UserID { get; set; } // FK
 
         public string Playlist_Name { get; set; }
 

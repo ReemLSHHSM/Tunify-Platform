@@ -7,6 +7,6 @@
         public string Email { get; set; }
         public DateTime Join_Date { get; set; }
 
-        public int Subscription_ID { get; set; }//FK
+        public int SubscriptionID { get; set; }//FK
     }
 }

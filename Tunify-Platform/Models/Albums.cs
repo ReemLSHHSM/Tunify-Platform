@@ -9,7 +9,7 @@
 
         public DateTime Release_Date { get; set; }
 
-        public int Artist_ID { get; set; }//FK
+        public int ArtistID { get; set; }//FK
 
     }
 }

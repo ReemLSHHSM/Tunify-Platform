@@ -4,8 +4,8 @@
     {
         public int Id { get; set; }//PR
 
-        public int Playlist_ID { get; set; }//FK
+        public int PlaylistID { get; set; }//FK
 
-        public int Song_ID { get; set; }//FK 
+        public int SongID { get; set; }//FK 
     }
 }
