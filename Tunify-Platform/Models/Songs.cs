@@ -6,12 +6,14 @@
 
         public string Title { get; set; }
     
-        public int Artist_ID { get; set; }//FK
+        public int ArtistID { get; set; }//FK
 
-        public int Album_ID { get; set; }//FK
+        public int AlbumID { get; set; }//FK
     
         public string Duration { get; set; }
 
         public string Gener {  get; set; }
+
+        public Artists Artist { get; set; }//one artist because 1 singer to many songs
     }
 }
