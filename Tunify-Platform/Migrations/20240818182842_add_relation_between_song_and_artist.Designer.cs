@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tunify_Platform.Data;
 
@@ -11,9 +12,11 @@ using Tunify_Platform.Data;
 namespace Tunify_Platform.Migrations
 {
     [DbContext(typeof(TunifyDBContext))]
-    partial class TunifyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240818182842_add_relation_between_song_and_artist")]
+    partial class add_relation_between_song_and_artist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,15 +111,19 @@ namespace Tunify_Platform.Migrations
 
             modelBuilder.Entity("Tunify_Platform.Models.PlaylistSongs", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("PlaylistID")
                         .HasColumnType("int");
 
                     b.Property<int>("SongID")
                         .HasColumnType("int");
 
-                    b.HasKey("PlaylistID", "SongID");
-
-                    b.HasIndex("SongID");
+                    b.HasKey("Id");
 
                     b.ToTable("playlistSongs");
                 });
@@ -212,25 +219,6 @@ namespace Tunify_Platform.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Tunify_Platform.Models.PlaylistSongs", b =>
-                {
-                    b.HasOne("Tunify_Platform.Models.Playlist", "playlist")
-                        .WithMany("playlistSongs")
-                        .HasForeignKey("PlaylistID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tunify_Platform.Models.Songs", "Songs")
-                        .WithMany("PlaylistsSongs")
-                        .HasForeignKey("SongID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Songs");
-
-                    b.Navigation("playlist");
-                });
-
             modelBuilder.Entity("Tunify_Platform.Models.Songs", b =>
                 {
                     b.HasOne("Tunify_Platform.Models.Artists", "Artist")
@@ -245,16 +233,6 @@ namespace Tunify_Platform.Migrations
             modelBuilder.Entity("Tunify_Platform.Models.Artists", b =>
                 {
                     b.Navigation("Songs");
-                });
-
-            modelBuilder.Entity("Tunify_Platform.Models.Playlist", b =>
-                {
-                    b.Navigation("playlistSongs");
-                });
-
-            modelBuilder.Entity("Tunify_Platform.Models.Songs", b =>
-                {
-                    b.Navigation("PlaylistsSongs");
                 });
 #pragma warning restore 612, 618
         }
