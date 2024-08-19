@@ -1,15 +1,19 @@
-﻿namespace Tunify_Platform.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using Tunify_Platform.Models;
+
+public class Playlist
 {
-    public class Playlist
-    {
-        public int Id { get; set; } // PK
+    public int Id { get; set; } // PK
 
-        public int UserID { get; set; } // FK
+    public int UserID { get; set; } // FK
 
-        public string Playlist_Name { get; set; }
+    [Required] // Example validation attribute
+    public string Playlist_Name { get; set; }
 
-        public DateTime Created_Date { get; set; }
+    public DateTime Created_Date { get; set; }
 
-        public ICollection<PlaylistSongs> playlistSongs { get; set; }
-    }
+    // The navigation property should not be required for POST unless needed
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ICollection<PlaylistSongs> PlaylistSongs { get; set; } = new List<PlaylistSongs>(); 
 }

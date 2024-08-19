@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tunify_Platform.Data;
 
@@ -11,9 +12,11 @@ using Tunify_Platform.Data;
 namespace Tunify_Platform.Migrations
 {
     [DbContext(typeof(TunifyDBContext))]
-    partial class TunifyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240818222213_add_seedersData")]
+    partial class add_seedersData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,38 +24,6 @@ namespace Tunify_Platform.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Playlist", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Created_Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Playlist_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("playlists");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Created_Date = new DateTime(2024, 8, 20, 15, 30, 0, 0, DateTimeKind.Unspecified),
-                            Playlist_Name = "Chill Vibes",
-                            UserID = 1
-                        });
-                });
 
             modelBuilder.Entity("Tunify_Platform.Models.Albums", b =>
                 {
@@ -112,6 +83,38 @@ namespace Tunify_Platform.Migrations
                             ID = 1,
                             Bio = "A popular artist",
                             Name = "Artist One"
+                        });
+                });
+
+            modelBuilder.Entity("Tunify_Platform.Models.Playlist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Playlist_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("playlists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created_Date = new DateTime(2024, 8, 20, 15, 30, 0, 0, DateTimeKind.Unspecified),
+                            Playlist_Name = "Chill Vibes",
+                            UserID = 1
                         });
                 });
 
@@ -248,8 +251,8 @@ namespace Tunify_Platform.Migrations
 
             modelBuilder.Entity("Tunify_Platform.Models.PlaylistSongs", b =>
                 {
-                    b.HasOne("Playlist", "playlist")
-                        .WithMany("PlaylistSongs")
+                    b.HasOne("Tunify_Platform.Models.Playlist", "playlist")
+                        .WithMany("playlistSongs")
                         .HasForeignKey("PlaylistID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -276,14 +279,14 @@ namespace Tunify_Platform.Migrations
                     b.Navigation("Artist");
                 });
 
-            modelBuilder.Entity("Playlist", b =>
-                {
-                    b.Navigation("PlaylistSongs");
-                });
-
             modelBuilder.Entity("Tunify_Platform.Models.Artists", b =>
                 {
                     b.Navigation("Songs");
+                });
+
+            modelBuilder.Entity("Tunify_Platform.Models.Playlist", b =>
+                {
+                    b.Navigation("playlistSongs");
                 });
 
             modelBuilder.Entity("Tunify_Platform.Models.Songs", b =>

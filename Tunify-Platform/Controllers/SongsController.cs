@@ -26,15 +26,15 @@ namespace Tunify_Platform.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Songs>>> Getsongs()
         {
-          
-            return await _context.getAllSongs();    
+
+            return await _context.getAllSongs();
         }
 
         // GET: api/Songs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Songs>> GetSongs(int id)
         {
-          
+
 
             return Ok(_context.getSongs(id));
         }
@@ -44,8 +44,8 @@ namespace Tunify_Platform.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSongs(int id, Songs songs)
         {
-           
-            return Ok(_context.UpdateSongs(songs,id));
+
+            return Ok(_context.UpdateSongs(songs, id));
         }
 
         // POST: api/Songs
@@ -53,7 +53,7 @@ namespace Tunify_Platform.Controllers
         [HttpPost]
         public async Task<ActionResult<Songs>> PostSongs(Songs songs)
         {
-         
+
             return Ok(_context.AddSongs(songs));
         }
 
@@ -65,11 +65,19 @@ namespace Tunify_Platform.Controllers
             return NoContent();
         }
 
-        [HttpPost("api/playlists/{playlistId}/songs/{songId}")]
-        public async Task<IActionResult> addToPlaylist(int songId, int playlistId)
+       
+
+        [HttpGet("playlists/{playlistId}/songs")]
+        public async Task<List<Songs>> getAllSongsFromPlaylist(int playlistId)
         {
-           var playlistsong= await _context.addToPlaylist(songId, playlistId);
-            return Ok(playlistsong);
+            return await _context.getAllSongsFromPlaylist(playlistId);
+
+        }
+
+        [HttpGet("/artistID")]
+        public async Task<List<Songs>> getAllSongsFromArtist(int artistID)
+        {
+            return await _context.getAllSongsFromArtist(artistID);
         }
 
 

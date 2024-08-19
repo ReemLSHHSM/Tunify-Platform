@@ -1,4 +1,5 @@
-﻿using Tunify_Platform.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Tunify_Platform.Data;
 using Tunify_Platform.Models;
 using Tunify_Platform.Repository.Interfaces;
 
@@ -47,17 +48,24 @@ namespace Tunify_Platform.Repository.Services
             return existingSong;
         }
 
-        public async Task<PlaylistSongs> addToPlaylist(int songId,int playlistId)
-        {
-            var playlistsong = new PlaylistSongs();
-            playlistsong.PlaylistID=playlistId;
-            playlistsong.SongID=songId;
+       
 
-           _context.playlistSongs.Add(playlistsong);
-            await _context.SaveChangesAsync();
-            return playlistsong;
+        public async Task<List<Songs>> getAllSongsFromPlaylist(int playlistId)
+        {
+            return await _context.playlistSongs
+            .Where(ps => ps.PlaylistID == playlistId)
+            .Select(ps => ps.Songs)
+            .ToListAsync();
+            
+           
         }
 
-      
+        public async Task<List<Songs>> getAllSongsFromArtist(int artistID)
+        {
+            return await _context.songs.Where(
+                s => s.ArtistID == artistID)
+                .ToListAsync();
+        }
     }
 }
+
