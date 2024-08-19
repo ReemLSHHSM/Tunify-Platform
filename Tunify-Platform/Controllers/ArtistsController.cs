@@ -66,6 +66,14 @@ namespace Tunify_Platform.Controllers
             return NoContent();
         }
 
-       
+        [HttpPost("artists/{artistId}/songs/{songId}")]
+        public async Task<Songs> AddSongToArtist(int songID, int artistID)
+        {
+
+            return await _context.AddSongToArtist(songID, artistID);
+
+        }
+
+
     }
 }

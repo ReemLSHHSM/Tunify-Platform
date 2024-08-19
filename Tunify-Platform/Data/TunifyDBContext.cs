@@ -44,51 +44,87 @@ namespace Tunify_Platform.Data
 
             //creating relation between playlistsong and song
             modelBuilder.Entity<PlaylistSongs>().
-            HasOne(p=>p.Songs).
-            WithMany(p=>p.PlaylistsSongs).
-            HasForeignKey(p=>p.SongID);
+            HasOne(p => p.Songs).
+            WithMany(p => p.PlaylistsSongs).
+            HasForeignKey(p => p.SongID);
 
             //Creating relation between playlistsong and playlist
             modelBuilder.Entity<PlaylistSongs>().
-            HasOne(p=>p.playlist).
-            WithMany(p=>p.playlistSongs).
-            HasForeignKey(p=> p.PlaylistID);
+            HasOne(p => p.playlist).
+            WithMany(p => p.PlaylistSongs).
+            HasForeignKey(p => p.PlaylistID);
 
 
 
-            modelBuilder.Entity<Artists>().HasData(
-         new Artists
-         {
-             ID = 1, // Ensure this matches the ArtistID used in the Songs seed data
-             Name = "Artist One",
-             Bio = "A popular artist"
-         }
- 
-     );
-
-
-            modelBuilder.Entity<Albums>().HasData(
-        new Albums
-        {
-            ID = 1, // Ensure this matches the AlbumID used in the Songs seed data
-            Album_Name = "Album One",
-            Release_Date = new DateTime(2024, 8, 5),
-            ArtistID = 1 // Valid Artist ID
-        }
-    );
-            modelBuilder.Entity<Songs>().HasData(
-        new Songs
+            modelBuilder.Entity<Subscriptions>().HasData(
+        new Subscriptions
         {
             Id = 1,
-            Title = "Song One",
-            ArtistID = 1, // Valid Artist ID
-            AlbumID = 1,  // Valid Album ID
-            Duration = "3:45",
-            Gener = "Rock"
+            SubscriptionType = "Premium",
+            Price = 9.99
         }
+    );
+
+            modelBuilder.Entity<Artists>().HasData(
+                new Artists
+                {
+                    ID = 1,
+                    Name = "Artist One",
+                    Bio = "A popular artist"
+                }
+            );
+
+            modelBuilder.Entity<Albums>().HasData(
+                new Albums
+                {
+                    ID = 1,
+                    Album_Name = "Album One",
+                    Release_Date = new DateTime(2024, 8, 5),
+                    ArtistID = 1
+                }
+            );
+
+            modelBuilder.Entity<Songs>().HasData(
+                new Songs
+                {
+                    Id = 1,
+                    Title = "Song One",
+                    ArtistID = 1,
+                    AlbumID = 1,
+                    Duration = "3:45",
+                    Gener = "Rock"
+                }
+            );
+
+            modelBuilder.Entity<Playlist>().HasData(
+                new Playlist
+                {
+                    Id = 1,
+                    UserID = 1,
+                    Playlist_Name = "Chill Vibes",
+                    Created_Date = new DateTime(2024, 8, 20, 15, 30, 0)
+                }
+            );
+
+            modelBuilder.Entity<Users>().HasData(
+                new Users
+                {
+                    Id = 1,
+                    UserName = "user1",
+                    Email = "user1@example.com",
+                    Join_Date = new DateTime(2024, 8, 1),
+                    SubscriptionID = 1
+                }
+            );
+
+            modelBuilder.Entity<PlaylistSongs>().HasData(
+                new PlaylistSongs
+                {
+                    PlaylistID = 1,
+                    SongID = 1
+                }
             );
         }
-      
     }
 }
 

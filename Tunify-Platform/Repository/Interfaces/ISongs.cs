@@ -14,6 +14,10 @@ namespace Tunify_Platform.Repository.Interfaces
 
         Task<Songs> DeleteUser(int id);
 
-        Task<PlaylistSongs> addToPlaylist(int songID,int playlistID);
+        Task<List<Songs>> getAllSongsFromArtist(int artistID);
+
+        Task<List<Songs>> getAllSongsFromPlaylist(int playlistID);
+
+       
     }
 }

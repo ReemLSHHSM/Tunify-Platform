@@ -53,10 +53,20 @@ namespace Tunify_Platform.Controllers
         [HttpPost]
         public async Task<ActionResult<Playlist>> PostPlaylist(Playlist playlist)
         {
-          
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            return Ok( _context.AddPlaylist(playlist));
+            // Ensure playlistSongs is not required if it is not part of the request payload
+            if (playlist.PlaylistSongs == null)
+            {
+                playlist.PlaylistSongs = new List<PlaylistSongs>();
+            }
+
+            return Ok(await _context.AddPlaylist(playlist));
         }
+
 
         // DELETE: api/Playlists/5
         [HttpDelete("{id}")]
@@ -67,6 +77,17 @@ namespace Tunify_Platform.Controllers
             return NoContent();
         }
 
-       
+        [HttpPost("playlists/{playlistId}/songs/{songId}")]
+        public async Task<IActionResult> AddToPlaylist(int playlistId, int songId)
+        {
+            var playlistsong = await _context.addToPlaylist(playlistId, songId);
+            if (playlistsong == null)
+            {
+                return BadRequest("Failed to add song to playlist.");
+            }
+            return Ok(playlistsong);
+        }
+
+
     }
 }
