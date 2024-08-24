@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tunify_Platform.Data;
 using Tunify_Platform.Repository.Interfaces;
@@ -15,7 +16,10 @@ namespace Tunify_Platform
 
 /*creating the string connection*/string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 /*for DB*/builder.Services.AddDbContext<TunifyDBContext>(options => options.UseSqlServer(connectionString));
-            
+
+            //Configure the Identity services 
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<TunifyDBContext>();
 
             builder.Services.AddControllers();//Adding the controller service
 
@@ -23,6 +27,7 @@ namespace Tunify_Platform
             builder.Services.AddTransient<IArtists, ArtistsServices>();
             builder.Services.AddTransient<IPlaylist, PlaylistServices>();
             builder.Services.AddTransient<ISongs,SongsServices>();
+            builder.Services.AddTransient<IAccounts, AccountsServices>();
 
 
 
@@ -37,18 +42,19 @@ namespace Tunify_Platform
             });
 
             var app = builder.Build();
-            app.MapControllers();
+
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseSwagger();
-            
-
-
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tunify API v1");
                options.RoutePrefix = "";
             });
 
+            app.MapControllers();
             app.MapGet("/", () => "Hello World!");
    
 

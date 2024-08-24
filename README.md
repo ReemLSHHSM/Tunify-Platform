@@ -1,4 +1,4 @@
-# Tunify-Platform
+# Tunify Platform
 
 ## Overview
 
@@ -10,43 +10,43 @@ Tunify Platform is a music management application designed to help users organiz
 
 ## Entity Relationships
 
-### `Users`
+### Users
 - **Primary Key (PK):** `Id` 
 - **Relationships:**
   - **Subscription**: Each user has a subscription type. (`Subscription_ID` is a foreign key referencing the `Subscriptions` table)
   - **Playlists**: Users can create multiple playlists. (`User_ID` is a foreign key in the `Playlist` table)
 
-### `Subscriptions`
+### Subscriptions
 - **Primary Key (PK):** `Id`
 - **Relationships:**
   - **Users**: A subscription type can be associated with multiple users. (`Subscription_ID` is a foreign key in the `Users` table)
 
-### `Artists`
+### Artists
 - **Primary Key (PK):** `ID`
 - **Relationships:**
   - **Songs**: Artists can have multiple songs. (`Artist_ID` is a foreign key in the `Songs` table)
   - **Albums**: Artists can release multiple albums. (`Artist_ID` is a foreign key in the `Albums` table)
 
-### `Albums`
+### Albums
 - **Primary Key (PK):** `ID`
 - **Relationships:**
   - **Songs**: An album can contain multiple songs. (`Album_ID` is a foreign key in the `Songs` table)
   - **Artist**: Each album is released by an artist. (`Artist_ID` is a foreign key in the `Albums` table)
 
-### `Songs`
+### Songs
 - **Primary Key (PK):** `Id`
 - **Relationships:**
   - **Artists**: Each song is performed by an artist. (`Artist_ID` is a foreign key in the `Songs` table)
   - **Albums**: Each song is part of an album. (`Album_ID` is a foreign key in the `Songs` table)
   - **Playlists**: Songs can be added to multiple playlists. (via `PlaylistSongs`)
 
-### `Playlist`
+### Playlist
 - **Primary Key (PK):** `Id`
 - **Relationships:**
   - **Users**: Each playlist is created by a user. (`User_ID` is a foreign key in the `Playlist` table)
   - **Songs**: Playlists can contain multiple songs. (via `PlaylistSongs`)
 
-### `PlaylistSongs`
+### PlaylistSongs
 - **Primary Key (PK):** `Id`
 - **Relationships:**
   - **Playlists**: Links songs to a playlist. (`Playlist_ID` is a foreign key referencing the `Playlist` table)
@@ -79,4 +79,28 @@ In the Tunify Platform application, the Repository Design Pattern has been imple
 3. **Refactored Controllers**: Controllers now use repository instances to interact with the data layer. This change promotes separation of concerns and improves testability. Constructor injection is used to provide repositories to the controllers.
 
 4. **Service Registration**: Repositories and controllers are registered in the `ConfigureServices` method of `Program.cs`, ensuring proper dependency injection and lifetime management.
+
+## Identity
+
+In this update, ASP.NET Core Identity has been integrated into the Tunify Platform to enable user authentication functionalities, including registration, login, and logout.
+
+
+- **Implement Actions:**
+  
+  - **Register Action:** Handles user registration using `RegisterDto`.
+
+  - **Login Action:** Authenticates users with `LoginDto`.
+
+  - **Logout Action:** Signs out the user and clears the authentication cookie.
+
+- **Error Handling:** Ensure to handle exceptions and provide feedback. Consider logging errors for troubleshooting.
+
+### How to Use
+
+- **Registration:** Access `/Account/Register` to create a new user account.
+
+- **Login:** Access `/Account/Login` to log in with your credentials.
+
+- **Logout:** Access `/Account/Logout` to sign out.
+
 
