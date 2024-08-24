@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Tunify_Platform.Models;
 
 namespace Tunify_Platform.Data
 {
-    public class TunifyDBContext : DbContext
+    public class TunifyDBContext : IdentityDbContext<IdentityUser>
     {
         public TunifyDBContext(DbContextOptions<TunifyDBContext> options) : base(options)
         {
@@ -24,7 +26,7 @@ namespace Tunify_Platform.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         //when overriding any method it has to have the same type of access modifire
         {
-
+            base.OnModelCreating(modelBuilder);//to ensure that any configurations provided by the base class are applied.
             //Creating relation between songs and artist
 
             modelBuilder.Entity<Artists>().
