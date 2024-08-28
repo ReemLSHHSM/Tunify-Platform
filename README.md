@@ -104,3 +104,28 @@ In this update, ASP.NET Core Identity has been integrated into the Tunify Platfo
 - **Logout:** Access `/Account/Logout` to sign out.
 
 
+## Identity and Authentication
+
+In this update, JWT-based authentication and authorization have been integrated into the Tunify Platform.
+
+### Repository Interfaces and Services
+
+- **Extension of IAccount Interface:** Extended to include a method for generating JWT tokens.
+- **IdentityAccountService:** Implemented the method to generate JWT tokens.
+- **JwtTokenService:** Handles token creation, validation, and claims.
+
+### AccountController
+
+- **Login Action:** Modified to generate and return a JWT token upon successful authentication. The token includes necessary claims, such as user roles and custom claims.
+
+### Securing API Endpoints
+
+- **Authorization:** Secured specific API endpoints in controllers using `[Authorize]` attributes. Implemented role-based and policy-based authorization where necessary.
+
+### Claims and Roles
+
+- **Roles and Claims:** Defined and handled within authorization policies.
+- **Database Seeding:** Roles and users are seeded into the database with appropriate claims.
+
+
+

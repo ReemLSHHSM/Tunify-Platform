@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Security.Claims;
 using Tunify_Platform.Models.DTOs;
 
 namespace Tunify_Platform.Repository.Interfaces
@@ -12,6 +13,7 @@ namespace Tunify_Platform.Repository.Interfaces
 
         public Task LogOut_User();
 
+        public Task<UserDto> UserProfile(ClaimsPrincipal claimsPrincipal);
 
     }
 }
