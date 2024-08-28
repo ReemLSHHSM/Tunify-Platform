@@ -126,6 +126,19 @@ namespace Tunify_Platform.Data
                     SongID = 1
                 }
             );
+            SeedRoles(modelBuilder, "Admin", new[] { "ViewReports", "ManageUsers", "ManagePlaylists", "ViewReports", "EditSettings" });
+            SeedRoles(modelBuilder, "User", new[] { "ViewReports", "ViewPlaylists", "AddSongs", "EditProfile", "CreatePlaylist" });
+        }
+        //Method for seeding roles
+        private void SeedRoles(ModelBuilder modelBuilder, string roleName, params string[] permissions)
+        {
+            var role = new IdentityRole
+            {
+                Id = roleName,
+                Name = roleName.ToLower(),
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString()
+            };
         }
     }
 }

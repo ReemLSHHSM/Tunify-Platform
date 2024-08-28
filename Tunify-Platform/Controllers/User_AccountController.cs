@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Tunify_Platform.Models.DTOs;
@@ -52,6 +53,15 @@ namespace Tunify_Platform.Controllers
         {
             await _accounts.LogOut_User();
             return Ok();
+        }
+
+
+        [Authorize(Roles = "User, Admin")]
+        [HttpGet("profile")]
+        public async Task<ActionResult<UserDto>> UserProfile()
+        {
+            return await _accounts.UserProfile(User);
+
         }
 
     }
